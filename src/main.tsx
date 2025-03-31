@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import App from './UseStateTest.tsx'
+import App from './UseReducerTest.tsx'
 
 createRoot(document.getElementById('root')!).render(
     <App />
