@@ -1,5 +1,6 @@
 import './App.css'
-
+import Card from "./components/Card";
+import Card2 from "./components/Card2"
 function App() {
   // 插值语句 jsx tsx {} 字符串 数字 数组（普通类型）元素 三元表达式 API调用
   // 插值语句支持对象怎么弄 {{name:1}} {name:1} let obj = {name:1} 需要序列化 JSON.stringify
@@ -17,6 +18,7 @@ function App() {
   const useful = (a:number,event: Event | undefined)=>{
     console.log(a,event)
   }
+
   const state = `<span>12345</span>`
   const date = [1,2,3,4,5,6]
   return (
@@ -30,6 +32,11 @@ function App() {
           return <div key={v}>{v}</div>
         })
       }</div>
+
+
+      <Card2 />
+      <Card title={'我是大海'}/>
+      <button onClick={() => window.onShow()}>调用Message</button>
     </>
   )
 }
