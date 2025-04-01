@@ -45,7 +45,6 @@ const Card: React.FC<Props> = (props) => {
   const {title, children} = {...defaultProps, ...props}
 
   return (
-
     <div className='card'>
       <header>
         <div>{title}</div>
