@@ -4,6 +4,7 @@ import Card2 from "./components/Card2"
 import React, {lazy, Suspense, useState} from "react";
 const AsyncComponent= lazy(() => import("./components/Async"));
 import {Skeleton} from "./components/Skeleton";
+import Index from "./components/BearBox";
 function App() {
   // 插值语句 jsx tsx {} 字符串 数字 数组（普通类型）元素 三元表达式 API调用
   // 插值语句支持对象怎么弄 {{name:1}} {name:1} let obj = {name:1} 需要序列化 JSON.stringify
@@ -35,6 +36,9 @@ function App() {
 
   return (
     <>
+      <Index />
+
+
       <Suspense fallback={<div>loading...</div>}>
         <AsyncComponent />
       </Suspense>
