@@ -1,63 +1,33 @@
+import React, { use } from 'react'
 import './index.css'
-import React from "react";
-
-interface Props {
-  title?: string,
-  children?: React.ReactNode,
-  callback?: (val:string) => void
-
+interface Data {
+  name: string
+  age: number
+  address: string
+  avatar: string
 }
 
-// 接受值方法1
-// export default function  Card(props:Props){
-//   return (
-//     <div className='card'>
-//       <header>
-//         <div>{props.title}</div>
-//         <div>副标题</div>
-//       </header>
-//       <main>
-//         内容区域
-//       </main>
-//       <footer>
-//         <button>确认</button>
-//         <button>取消</button>
-//       </footer>
-//     </div>
-//   )
-// }
-// 接受方法值2
+const getData = async () => {
+  await new Promise(resolve => setTimeout(resolve, 2000))
+  return await fetch('http://localhost:5173/data.json').then(res => res.json()) as { data: Data }
+};
 
-// 传值默认值的方法：方法一 直接在括号结构 {title='默认标题'}
-//方法2：通过defaultProps通过...展开重新结构
-const defaultProps: Partial<Props> = {
-  title: '默认标题',
-  children: <div>我是默认内容</div>
-}
+const dataPromise = getData();
 
+const Card: React.FC = () => {
+  const { data } = use(dataPromise);
+  return <div className="card">
+    <header className="card-header">
+      <div className="card-name">{data.name}</div>
+      <div className="card-age">{data.age}</div>
+    </header>
+    <section className="card-content">
+      <div className="card-address">{data.address}</div>
+      <div className="card-avatar">
+        <img width={50} height={50} src={data.avatar} alt="" />
+      </div>
+    </section>
+  </div>;
+};
 
-const Card: React.FC<Props> = (props) => {
-
-  window.addEventListener('on-card-to',()=>{
-    console.log("收到了收到了")
-  })
-
-  const {title, children} = {...defaultProps, ...props}
-
-  return (
-    <div className='card'>
-      <header>
-        <div>{title}</div>
-        <div>副标题</div>
-      </header>
-      <main>
-        {children}
-      </main>
-      <footer>
-        <button onClick={()=>props.callback && props.callback('我是子组件的参数')}>确认</button>
-        <button>取消</button>
-      </footer>
-    </div>
-  )
-}
-export default Card
+export default Card;

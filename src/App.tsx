@@ -1,8 +1,9 @@
 import './App.css'
 import Card from "./components/Card";
 import Card2 from "./components/Card2"
-import React, {useState} from "react";
-
+import React, {lazy, Suspense, useState} from "react";
+const AsyncComponent= lazy(() => import("./components/Async"));
+import {Skeleton} from "./components/Skeleton";
 function App() {
   // 插值语句 jsx tsx {} 字符串 数字 数组（普通类型）元素 三元表达式 API调用
   // 插值语句支持对象怎么弄 {{name:1}} {name:1} let obj = {name:1} 需要序列化 JSON.stringify
@@ -34,6 +35,14 @@ function App() {
 
   return (
     <>
+      <Suspense fallback={<div>loading...</div>}>
+        <AsyncComponent />
+      </Suspense>
+      <Suspense fallback={<Skeleton />}>
+        <Card />
+      </Suspense>
+
+
       <div className={'logo'}>{JSON.stringify(text)}</div>
       <div onClick={fn}>点击我</div>
       <div onClick={() => useful(123, event)}>传参点击</div>
@@ -44,7 +53,6 @@ function App() {
         })
       }</div>
       <Card2/>
-      <Card title={'我是大海'}/>
       <button onClick={() => window.onShow()}>调用Message</button>
       {/*通过useState进行获取*/}
       <input value={value} onChange={handleChange} type='text'/>
